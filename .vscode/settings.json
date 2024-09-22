@@ -1,0 +1,18 @@
+{
+    "files.eol": "\n",
+    "editor.formatOnSave": true,
+    "prettier.configPath": ".prettierrc",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "typescript.tsc.autoDetect": "on",
+    "npm.autoDetect": "on",
+    "debug.allowBreakpointsEverywhere": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "search.exclude": {
+        "*/**/node_modules/": true
+    },
+    "i18n-ally.localesPaths": ["src/translations"],
+    "i18n-ally.keystyle": "nested",
+    "i18n-ally.sourceLanguage": "cs"
+}
