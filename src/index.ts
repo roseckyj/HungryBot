@@ -63,8 +63,8 @@ const pubs: PubDescriptor[] = [
     },
 ];
 
-const TOKEN = process.env.TOKEN;
-const CLIENT_ID = process.env.CLIENT_ID;
+const TOKEN = process.env.TOKEN!;
+const CLIENT_ID = process.env.CLIENT_ID!;
 
 const commands = [
     {
