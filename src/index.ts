@@ -3,7 +3,6 @@ import { Client, GatewayIntentBits, REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
 import { Iconv } from 'iconv';
 import parse from 'node-html-parser';
-import { forEver } from 'waitasecond';
 
 dotenv.config();
 
@@ -205,6 +204,4 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu> {
     });
 
     client.login(TOKEN);
-
-    await forEver();
 })();

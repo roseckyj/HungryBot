@@ -1,0 +1,21 @@
+version: '3.8'
+name: visitbot
+
+services:
+    bot:
+        build:
+            context: .
+            dockerfile_inline: |
+                FROM node:22-alpine
+                RUN apk add g++ make py3-pip
+                RUN corepack enable && corepack prepare pnpm@latest --activate
+                WORKDIR /app
+                COPY . .
+                RUN pnpm install
+                RUN pnpm run build; exit 0
+                CMD node build/index.js
+
+        restart: always
+
+volumes:
+    saves:
