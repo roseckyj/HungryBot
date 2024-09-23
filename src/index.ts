@@ -44,7 +44,7 @@ const pubs: PubDescriptor[] = [
     },
     {
         type: 'menicka',
-        id: 325, // Divá Bára
+        id: 6468, // Divá Bára
     },
     {
         type: 'menicka',
