@@ -10,17 +10,21 @@ type PubDescriptor =
     | {
           type: 'menicka';
           id: number;
+          color: number;
       }
     | {
           type: 'wolt';
           link: string;
           categories: RegExp[];
+          color: number;
       };
 
 type PubInfo = {
     name: string;
     address: string;
     website: string;
+    image: string;
+    color: number;
 };
 
 type Menu = {
@@ -36,29 +40,35 @@ type MenuItem = {
 const pubs: PubDescriptor[] = [
     {
         type: 'menicka',
-        id: 4116, // Padagali
-    },
-    {
-        type: 'menicka',
-        id: 2752, // U Dřeváka
-    },
-    {
-        type: 'menicka',
-        id: 6468, // Divá Bára
-    },
-    {
-        type: 'menicka',
-        id: 6695, // U Karla
+        id: 4116, // Padagali,
+        color: 0xf15850,
     },
     {
         type: 'wolt',
         link: 'https://wolt.com/en/cze/brno/restaurant/bistro-bastardo-stefanikova',
         categories: [/tydenni-nabidka.*/],
+        color: 0x5a5045,
     },
     {
         type: 'wolt',
         link: 'https://wolt.com/en/cze/brno/restaurant/bistro-pod-schody1',
         categories: [/obedy.*/],
+        color: 0xffcc70,
+    },
+    {
+        type: 'menicka',
+        id: 2752, // U Dřeváka,
+        color: 0x7c1c14,
+    },
+    {
+        type: 'menicka',
+        id: 6468, // Divá Bára,
+        color: 0x4f79e5,
+    },
+    {
+        type: 'menicka',
+        id: 6695, // U Karla,
+        color: 0xffffff,
     },
 ];
 
@@ -117,6 +127,12 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu> {
                 name: response.querySelector('.profile h1')?.text.trim() ?? '',
                 address: response.querySelector('.profile .adresa')?.text.trim() ?? '',
                 website: `https://www.menicka.cz/${pub.id}.html`,
+                image:
+                    response
+                        .querySelector('.galerie img')
+                        ?.getAttribute('src')
+                        ?.replace('../', 'https://www.menicka.cz/') ?? '',
+                color: pub.color,
             };
 
             return {
@@ -153,6 +169,8 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu> {
                 name: responseStatic.venue.name,
                 address: responseStatic.venue.address + ', ' + responseStatic.venue.city,
                 website: pub.link,
+                image: responseStatic.venue.image_url,
+                color: pub.color,
             };
 
             return {
@@ -190,6 +208,10 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu> {
                 title: menu.pub.name,
                 description: menu.pub.address,
                 url: menu.pub.website,
+                thumbnail: {
+                    url: menu.pub.image,
+                },
+                color: menu.pub.color,
                 fields:
                     menu.items && menu.items.length > 0
                         ? menu.items.map((item) => ({
