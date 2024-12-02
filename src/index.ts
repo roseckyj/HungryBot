@@ -264,7 +264,7 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
 
             // When the user clicks on the button, send the extended menu
             const filter: CollectorFilter<any> = (interaction) => interaction.customId === 'more_pubs';
-            const collector = message.createMessageComponentCollector({ filter, time: 60000 });
+            const collector = message.createMessageComponentCollector({ filter, time: 1000 * 60 * 60 });
 
             collector.on('collect', async (interaction) => {
                 const menuExtended: Menu[] = (await Promise.all(pubsExtended.map(evaluatePub))).filter(
