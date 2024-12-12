@@ -19,6 +19,13 @@ type PubDescriptor =
           categories: RegExp[];
           color: number;
           icon: string;
+      }
+    | {
+          type: 'static';
+          link: string;
+          name: string;
+          color: number;
+          icon: string;
       };
 
 type PubInfo = {
@@ -60,27 +67,42 @@ const pubs: PubDescriptor[] = [
         color: 0x7c1c14,
         icon: '🍔',
     },
-];
-
-const pubsExtended: PubDescriptor[] = [
-    {
-        type: 'wolt',
-        link: 'https://wolt.com/en/cze/brno/restaurant/bistro-pod-schody1',
-        categories: [/obedy.*/],
-        color: 0xffcc70,
-        icon: '🥞',
-    },
-    {
-        type: 'menicka',
-        id: 6468, // Divá Bára,
-        color: 0x4f79e5,
-        icon: '🍕',
-    },
     {
         type: 'menicka',
         id: 6695, // U Karla,
         color: 0xffffff,
         icon: '🍗',
+    },
+];
+
+const pubsExtended: PubDescriptor[] = [
+    {
+        type: 'static',
+        link: 'https://www.facebook.com/profile.php?id=100094367065084',
+        name: 'Bistro pod Schody',
+        color: 0xffcc70,
+        icon: '🥞',
+    },
+    {
+        type: 'static',
+        link: 'https://www.taorestaurant.cz/',
+        name: 'Táo Viet Nam',
+        color: 0x66ad2d,
+        icon: '🍜',
+    },
+    {
+        type: 'static',
+        link: 'https://zobrno.cz/',
+        name: 'Zô Brno',
+        color: 0xfef8da,
+        icon: '🍣',
+    },
+    {
+        type: 'static',
+        link: 'https://www.di-napoli.cz/',
+        name: 'Bistro Di Napoli',
+        color: 0x009614,
+        icon: '🍕',
     },
 ];
 
@@ -194,6 +216,19 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
                 return {
                     pub: pubInfo,
                     items,
+                };
+            }
+            case 'static': {
+                return {
+                    pub: {
+                        name: pub.name,
+                        address: '',
+                        website: pub.link,
+                        image: '',
+                        color: pub.color,
+                        icon: pub.icon,
+                    },
+                    items: null,
                 };
             }
         }
