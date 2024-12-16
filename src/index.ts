@@ -272,8 +272,8 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
                 fields:
                     menu.items && menu.items.length > 0
                         ? menu.items.map((item) => ({
-                              name: item.item,
-                              value: item.price ? `${item.price} Kč` : '',
+                              value: `${item.item} ${item.price ? ` - *${item.price} Kč*` : ''}`,
+                              name: /*item.price ? `${item.price} Kč` :*/ '',
                           }))
                         : undefined,
             }));
@@ -317,8 +317,8 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
                     fields:
                         menu.items && menu.items.length > 0
                             ? menu.items.map((item) => ({
-                                  name: item.item,
-                                  value: item.price ? `${item.price} Kč` : '',
+                                  value: `${item.item} ${item.price ? ` - *${item.price} Kč*` : ''}`,
+                                  name: /*item.price ? `${item.price} Kč` :*/ '',
                               }))
                             : undefined,
                 }));
