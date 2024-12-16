@@ -263,7 +263,7 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
 
             const embeds = menu.map((menu) => ({
                 title: menu.pub.icon + ' ' + menu.pub.name,
-                description: menu.pub.address,
+                // description: menu.pub.address,
                 url: menu.pub.website,
                 // thumbnail: {
                 //     url: menu.pub.image,
@@ -275,7 +275,7 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
                               name: item.item,
                               value: item.price ? `${item.price} Kč` : '',
                           }))
-                        : [{ name: 'Menu není k dispozici', value: '' }],
+                        : undefined,
             }));
 
             await interaction.reply({
@@ -308,7 +308,7 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
 
                 const embedsExtended = menuExtended.map((menu) => ({
                     title: menu.pub.icon + ' ' + menu.pub.name,
-                    description: menu.pub.address,
+                    // description: menu.pub.address,
                     url: menu.pub.website,
                     // thumbnail: {
                     //     url: menu.pub.image,
@@ -320,7 +320,7 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
                                   name: item.item,
                                   value: item.price ? `${item.price} Kč` : '',
                               }))
-                            : [{ name: 'Menu není k dispozici', value: '' }],
+                            : undefined,
                 }));
 
                 await interaction.update({ embeds: [...embeds, ...embedsExtended], components: [] });
