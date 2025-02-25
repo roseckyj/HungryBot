@@ -85,7 +85,7 @@ const pubsExtended: PubDescriptor[] = [
     },
     {
         type: 'static',
-        link: 'https://www.taorestaurant.cz/',
+        link: 'https://www.taorestaurant.cz/tydenni_menu/nabidka/',
         name: 'Táo Viet Nam',
         color: 0x66ad2d,
         icon: '🍜',
@@ -103,6 +103,13 @@ const pubsExtended: PubDescriptor[] = [
         name: 'Bistro Di Napoli',
         color: 0x009614,
         icon: '🍕',
+    },
+    {
+        type: 'static',
+        link: 'https://www.carusorestaurant.cz/denni-obedove-menu/',
+        name: 'Caruso',
+        color: 0xffffff,
+        icon: '🍝',
     },
 ];
 
