@@ -188,11 +188,24 @@ const pubsExtended: PubDescriptor[] = [
         },
     },
     {
+        type: 'menicka',
+        id: 9363, // Na Botance,
+        color: 0x1c5c95,
+        icon: '🌼',
+    },
+    {
         type: 'static',
         link: 'https://www.facebook.com/profile.php?id=100094367065084',
         name: 'Bistro pod Schody',
         color: 0xffcc70,
         icon: '🥞',
+    },
+    {
+        type: 'static',
+        link: 'http://www.fresh-menu.cz/#menu',
+        name: 'Fresh Menu',
+        color: 0x79b741,
+        icon: '🌿',
     },
     {
         type: 'static',
