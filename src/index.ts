@@ -1,5 +1,14 @@
 import axios from 'axios';
-import { ButtonStyle, Client, CollectorFilter, ComponentType, GatewayIntentBits, REST, Routes } from 'discord.js';
+import {
+    APIEmbed,
+    ButtonStyle,
+    Client,
+    CollectorFilter,
+    ComponentType,
+    GatewayIntentBits,
+    REST,
+    Routes,
+} from 'discord.js';
 import dotenv from 'dotenv';
 import { Iconv } from 'iconv';
 import parse, { HTMLElement } from 'node-html-parser';
@@ -381,7 +390,7 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
         if (interaction.commandName === 'menu') {
             const menu: Menu[] = (await Promise.all(pubs.map(evaluatePub))).filter((x) => x) as Menu[];
 
-            const embeds = menu.map((menu) => ({
+            const embeds: APIEmbed[] = menu.map((menu) => ({
                 title: menu.pub.icon + ' ' + menu.pub.name,
                 // description: menu.pub.address,
                 url: menu.pub.website,
@@ -389,16 +398,16 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
                 //     url: menu.pub.image,
                 // },
                 color: menu.pub.color,
-                fields:
-                    menu.items && menu.items.length > 0
-                        ? menu.items.map((item) => ({
-                              value: `${item.item} ${item.price ? ` - *${item.price} Kč*` : ''}`,
-                              name: /*item.price ? `${item.price} Kč` :*/ '',
-                          }))
-                        : undefined,
+                description: (menu.items && menu.items.length > 0
+                    ? menu.items
+                          .map((item) => `${item.item} ${item.price ? ` - *${item.price} Kč*` : ''}`)
+                          .filter((x) => x.length > 0)
+                    : []
+                ).join('\n\n'),
             }));
 
             await interaction.reply({
+                content: `# Menu for ${new Date().toLocaleDateString('cs-CZ')}`,
                 embeds,
                 components: [
                     {
@@ -422,41 +431,42 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
             const collector = message.createMessageComponentCollector({ filter, time: 1000 * 60 * 60 });
 
             collector.on('collect', async (interaction) => {
+                await interaction.deferReply();
+
                 const menuExtended: Menu[] = (await Promise.all(pubsExtended.map(evaluatePub))).filter(
                     (x) => x,
                 ) as Menu[];
 
                 const embedsExtended = menuExtended.map((menu) => ({
                     title: menu.pub.icon + ' ' + menu.pub.name,
-                    // description: menu.pub.address,
                     url: menu.pub.website,
-                    // thumbnail: {
-                    //     url: menu.pub.image,
-                    // },
                     color: menu.pub.color,
-                    fields:
-                        menu.items && menu.items.length > 0
-                            ? menu.items.map((item) => ({
-                                  value: `${item.item} ${item.price ? ` - *${item.price} Kč*` : ''}`,
-                                  name: /*item.price ? `${item.price} Kč` :*/ '',
-                              }))
-                            : undefined,
+                    description: (menu.items && menu.items.length > 0
+                        ? menu.items
+                              .map((item) => `${item.item} ${item.price ? ` - *${item.price} Kč*` : ''}`)
+                              .filter((x) => x.length > 0)
+                        : []
+                    ).join('\n\n'),
                 }));
 
-                await interaction.update({ embeds: [...embeds, ...embedsExtended], components: [] });
+                await interaction.editReply({
+                    embeds: embedsExtended,
+                    components: [],
+                });
 
                 collector.stop();
 
-                // Add reactions to the message with the icons of the pubs
-                for (let i = 0; i < menuExtended.length; i++) {
-                    await message.react(pubsExtended[i].icon);
-                }
+                // // Add reactions to the new message with the icons of the pubs
+                // const newMessage = await interaction.fetchReply();
+                // for (let i = 0; i < menuExtended.length; i++) {
+                //     await newMessage.react(pubsExtended[i].icon);
+                // }
             });
 
-            // Add reactions to the message with the icons of the pubs
-            for (let i = 0; i < menu.length; i++) {
-                await message.react(pubs[i].icon);
-            }
+            // // Add reactions to the message with the icons of the pubs
+            // for (let i = 0; i < menu.length; i++) {
+            //     await message.react(pubs[i].icon);
+            // }
         }
     });
 
