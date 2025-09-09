@@ -274,14 +274,14 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
                     )[0];
 
                 const polevky: MenuItem[] = menicka.querySelectorAll('.polevka').map((polevka) => ({
-                    item: polevka.querySelector('.polozka')?.lastChild?.text ?? '',
+                    item: polevka.querySelector('.polozka')?.childNodes[1]?.text ?? '',
                     price:
                         parseInt(polevka.querySelector('.cena')?.text.replace(',', '.').replace(' Kč', '') ?? '0') ||
                         null,
                 }));
 
                 const jidlo: MenuItem[] = menicka.querySelectorAll('.jidlo').map((jidlo) => ({
-                    item: jidlo.querySelector('.polozka')?.lastChild?.text ?? '',
+                    item: jidlo.querySelector('.polozka')?.childNodes[1]?.text ?? '',
                     price:
                         parseInt(jidlo.querySelector('.cena')?.text.replace(',', '.').replace(' Kč', '') ?? '0') ||
                         null,
