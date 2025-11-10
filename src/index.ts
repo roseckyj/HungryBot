@@ -74,7 +74,7 @@ const pubs: PubDescriptor[] = [
     {
         type: 'wolt',
         link: 'https://wolt.com/en/cze/brno/restaurant/bistro-bastardo-stefanikova',
-        categories: [/tydenni-nabidka.*/],
+        categories: [/tydenni.*/],
         color: 0x5a5045,
         icon: '🌮',
     },
@@ -274,7 +274,7 @@ async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
                     )[0];
 
                 const polevky: MenuItem[] = menicka.querySelectorAll('.polevka').map((polevka) => ({
-                    item: polevka.querySelector('.polozka')?.childNodes[1]?.text ?? '',
+                    item: polevka.querySelector('.polozka')?.childNodes[0]?.text ?? '',
                     price:
                         parseInt(polevka.querySelector('.cena')?.text.replace(',', '.').replace(' Kč', '') ?? '0') ||
                         null,
