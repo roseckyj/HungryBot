@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { db } from '../../database';
 
-export const data = new SlashCommandBuilder().setName('favourites').setDescription('List your favourite menu items');
+export const data = new SlashCommandBuilder().setName('liked').setDescription('List your liked menu items');
 
 export async function execute(interaction: ChatInputCommandInteraction) {
     // Fetch the user's favourites
