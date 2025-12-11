@@ -18,12 +18,10 @@ const commands: {
 
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
-console.log(commandFolders);
 
 for (const folder of commandFolders) {
     const commandsPath = path.join(foldersPath, folder);
-    const commandFiles = fs.readdirSync(commandsPath).filter((file) => file === 'index.ts');
-    console.log(fs.readdirSync(commandsPath));
+    const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.startsWith('index.'));
     for (const file of commandFiles) {
         const filePath = path.join(commandsPath, file);
         const command = require(filePath);
