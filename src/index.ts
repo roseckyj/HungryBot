@@ -40,6 +40,9 @@ for (const folder of commandFolders) {
     }
 }
 
+console.log(`Loaded ${commands.length} commands:`);
+commands.forEach((cmd) => console.log(`- ${cmd.data.name}`));
+
 const rest = new REST({ version: '10' }).setToken(TOKEN);
 
 (async () => {
