@@ -1,9 +1,21 @@
 import axios from 'axios';
 import parse from 'node-html-parser';
+import { cleanupText } from '../utils/cleanupText';
 import { winToUtf } from '../utils/winToUtf';
 import { Menu, MenuItem, PubDescriptor, PubInfo } from './types';
-
 export async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
+    const res = await _evaluatePub(pub);
+    if (!res) return null;
+    if (!res.items) return res;
+    return {
+        ...res,
+        items: res.items.map((item) => ({
+            ...item,
+            item: cleanupText(item.item),
+        })),
+    };
+}
+async function _evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
     try {
         switch (pub.type) {
             case 'menicka': {

@@ -2,7 +2,7 @@ import axios from 'axios';
 import parse, { HTMLElement } from 'node-html-parser';
 import { Menu, PubDescriptor } from './types';
 
-const _pubs: PubDescriptor[] = [
+export const allPubs: PubDescriptor[] = [
     {
         type: 'menicka',
         id: 4116, // Padagali,
@@ -178,6 +178,6 @@ const _pubs: PubDescriptor[] = [
 ];
 
 const pageSize = 5;
-export const pubs: PubDescriptor[][] = new Array(Math.ceil(_pubs.length / pageSize))
+export const pubs: PubDescriptor[][] = new Array(Math.ceil(allPubs.length / pageSize))
     .fill(0)
-    .map((_, i) => _pubs.slice(i * pageSize, i * pageSize + pageSize));
+    .map((_, i) => allPubs.slice(i * pageSize, i * pageSize + pageSize));
