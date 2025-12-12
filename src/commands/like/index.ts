@@ -73,5 +73,6 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 
     await interaction.reply({
         content: `*Added favourite menu item with regex \`${regex}\` for ${interaction.user.username}! :tada:*`,
+        flags: [MessageFlags.Ephemeral],
     });
 }

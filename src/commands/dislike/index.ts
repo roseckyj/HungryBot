@@ -73,5 +73,6 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 
     await interaction.reply({
         content: 'Successfully removed the favourite! :smiley:',
+        flags: [MessageFlags.Ephemeral],
     });
 }
