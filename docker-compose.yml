@@ -16,6 +16,8 @@ services:
                 CMD node build/index.js
 
         restart: always
+        volumes:
+            - ./data:/app/data
 
 volumes:
     saves:
