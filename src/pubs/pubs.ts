@@ -82,6 +82,20 @@ export const allPubs: PubDescriptor[] = [
         },
     },
     {
+        type: 'wolt',
+        link: 'https://wolt.com/cs/cze/brno/restaurant/pelmeka',
+        categories: [],
+        color: 0x01b1e0,
+        icon: '🥟',
+    },
+    {
+        type: 'static',
+        link: 'https://www.di-napoli.cz/',
+        name: 'Bistro Di Napoli',
+        color: 0x009614,
+        icon: '🍕',
+    },
+    {
         type: 'function',
         link: 'https://www.carusorestaurant.cz/denni-obedove-menu/',
         name: 'Caruso',
@@ -142,15 +156,9 @@ export const allPubs: PubDescriptor[] = [
         },
     },
     {
-        type: 'menicka',
-        id: 9363, // Na Botance,
-        color: 0x1c5c95,
-        icon: '🌼',
-    },
-    {
         type: 'static',
-        link: 'https://www.facebook.com/profile.php?id=100094367065084',
-        name: 'Bistro pod Schody',
+        link: 'https://www.facebook.com/hostinecpodschody',
+        name: 'Hostinec pod Schody',
         color: 0xffcc70,
         icon: '🥞',
     },
@@ -161,6 +169,12 @@ export const allPubs: PubDescriptor[] = [
     //     color: 0x79b741,
     //     icon: '🌿',
     // },
+    // {
+    //     type: 'menicka',
+    //     id: 9363, // Na Botance,
+    //     color: 0x1c5c95,
+    //     icon: '🌼',
+    // },
     {
         type: 'static',
         link: 'https://zobrno.cz/',
@@ -169,11 +183,11 @@ export const allPubs: PubDescriptor[] = [
         icon: '🍣',
     },
     {
-        type: 'static',
-        link: 'https://www.di-napoli.cz/',
-        name: 'Bistro Di Napoli',
-        color: 0x009614,
-        icon: '🍕',
+        type: 'wolt',
+        link: 'https://www.foodora.cz/restaurant/z0gp/ni-hao',
+        categories: [],
+        color: 0x0dc68b,
+        icon: '🥢',
     },
 ];
 
