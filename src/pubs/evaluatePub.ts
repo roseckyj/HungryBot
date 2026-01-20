@@ -131,7 +131,6 @@ async function _evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
             }
         }
     } catch (error) {
-        // console.error(error);
         return null;
     }
 }

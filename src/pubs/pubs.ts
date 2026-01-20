@@ -1,5 +1,5 @@
 import axios from 'axios';
-import parse, { HTMLElement } from 'node-html-parser';
+import parse from 'node-html-parser';
 import { Menu, PubDescriptor } from './types';
 
 export const allPubs: PubDescriptor[] = [
@@ -95,65 +95,72 @@ export const allPubs: PubDescriptor[] = [
         color: 0x009614,
         icon: '🍕',
     },
+    // {
+    //     type: 'function',
+    //     link: 'https://www.carusorestaurant.cz/denni-obedove-menu/',
+    //     name: 'Caruso',
+    //     color: 0xffffff,
+    //     icon: '🍝',
+    //     evaluate: async () => {
+    //         const response = parse(
+    //             (
+    //                 await axios.get('https://www.carusorestaurant.cz/denni-obedove-menu/', {
+    //                     responseEncoding: 'utf-8',
+    //                 })
+    //             ).data,
+    //         );
+
+    //         // Vytáhni všechny .vc_tta-panel elementy
+    //         let menu = response.querySelectorAll('.vc_tta-panel');
+
+    //         // Pro každý koukni do headingu a vem jen ten, který má aktuální den v týdnu
+    //         const weekday = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek'][new Date().getDay() - 1].toLowerCase();
+    //         menu = menu.filter((item) =>
+    //             item.querySelector('.vc_tta-title-text')?.text.toLowerCase().includes(weekday),
+    //         );
+
+    //         if (menu.length === 0) return null;
+
+    //         // Najdi všechny .wpb_row elementy a z nich vytáhni jídlo a cenu (každé obalené v paragrafu)
+    //         menu = menu[0].querySelectorAll('.wpb_row');
+
+    //         return {
+    //             items: menu
+    //                 .map((item) => {
+    //                     const text = item.querySelectorAll('p').map((p) => p.text);
+    //                     if (text.length < 2) return null;
+
+    //                     // Find nearest previus .wpb_text_column element
+    //                     let heading: HTMLElement | null = item;
+    //                     while (heading && !heading.querySelector('h3')) {
+    //                         heading = heading.previousElementSibling;
+    //                     }
+    //                     let headingstr = '';
+    //                     if (heading) headingstr = heading.querySelector('h3')?.text ?? '';
+
+    //                     const price = text.pop();
+    //                     return {
+    //                         item: `${text[0]} (${headingstr})`,
+    //                         price: price ? parseInt(price.replace('Kč', '').trim()) : null,
+    //                     };
+    //                 })
+    //                 .filter((x) => x),
+    //             pub: {
+    //                 name: 'Caruso',
+    //                 address: 'Kounicova 22, 602 00 Brno-střed-Veveří',
+    //                 color: 0xffffff,
+    //                 icon: '🍝',
+    //                 website: 'https://www.carusorestaurant.cz/denni-obedove-menu/',
+    //             },
+    //         } as Menu;
+    //     },
+    // },
     {
-        type: 'function',
-        link: 'https://www.carusorestaurant.cz/denni-obedove-menu/',
+        type: 'static',
+        link: 'https://carusofood.cz/denni-menu',
         name: 'Caruso',
         color: 0xffffff,
         icon: '🍝',
-        evaluate: async () => {
-            const response = parse(
-                (
-                    await axios.get('https://www.carusorestaurant.cz/denni-obedove-menu/', {
-                        responseEncoding: 'utf-8',
-                    })
-                ).data,
-            );
-
-            // Vytáhni všechny .vc_tta-panel elementy
-            let menu = response.querySelectorAll('.vc_tta-panel');
-
-            // Pro každý koukni do headingu a vem jen ten, který má aktuální den v týdnu
-            const weekday = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek'][new Date().getDay() - 1].toLowerCase();
-            menu = menu.filter((item) =>
-                item.querySelector('.vc_tta-title-text')?.text.toLowerCase().includes(weekday),
-            );
-
-            if (menu.length === 0) return null;
-
-            // Najdi všechny .wpb_row elementy a z nich vytáhni jídlo a cenu (každé obalené v paragrafu)
-            menu = menu[0].querySelectorAll('.wpb_row');
-
-            return {
-                items: menu
-                    .map((item) => {
-                        const text = item.querySelectorAll('p').map((p) => p.text);
-                        if (text.length < 2) return null;
-
-                        // Find nearest previus .wpb_text_column element
-                        let heading: HTMLElement | null = item;
-                        while (heading && !heading.querySelector('h3')) {
-                            heading = heading.previousElementSibling;
-                        }
-                        let headingstr = '';
-                        if (heading) headingstr = heading.querySelector('h3')?.text ?? '';
-
-                        const price = text.pop();
-                        return {
-                            item: `${text[0]} (${headingstr})`,
-                            price: price ? parseInt(price.replace('Kč', '').trim()) : null,
-                        };
-                    })
-                    .filter((x) => x),
-                pub: {
-                    name: 'Caruso',
-                    address: 'Kounicova 22, 602 00 Brno-střed-Veveří',
-                    color: 0xffffff,
-                    icon: '🍝',
-                    website: 'https://www.carusorestaurant.cz/denni-obedove-menu/',
-                },
-            } as Menu;
-        },
     },
     {
         type: 'static',
@@ -194,4 +201,4 @@ export const allPubs: PubDescriptor[] = [
 const pageSize = 5;
 export const pubs: PubDescriptor[][] = new Array(Math.ceil(allPubs.length / pageSize))
     .fill(0)
-    .map((_, i) => allPubs.slice(i * pageSize, i * pageSize + pageSize));
+    .map((_, i) => allPubs.slice(i * pageSize, (i + 1) * pageSize));
