@@ -84,16 +84,9 @@ export const allPubs: PubDescriptor[] = [
     {
         type: 'wolt',
         link: 'https://wolt.com/cs/cze/brno/restaurant/pelmeka',
-        categories: [],
+        categories: [/.*denni.*/],
         color: 0x01b1e0,
         icon: '🥟',
-    },
-    {
-        type: 'static',
-        link: 'https://www.di-napoli.cz/',
-        name: 'Bistro Di Napoli',
-        color: 0x009614,
-        icon: '🍕',
     },
     // {
     //     type: 'function',
@@ -156,6 +149,12 @@ export const allPubs: PubDescriptor[] = [
     //     },
     // },
     {
+        type: 'menicka',
+        id: 9964, // Pod Schody,
+        color: 0xffcc70,
+        icon: '🥞',
+    },
+    {
         type: 'static',
         link: 'https://carusofood.cz/denni-menu',
         name: 'Caruso',
@@ -164,10 +163,10 @@ export const allPubs: PubDescriptor[] = [
     },
     {
         type: 'static',
-        link: 'https://www.facebook.com/hostinecpodschody',
-        name: 'Hostinec pod Schody',
-        color: 0xffcc70,
-        icon: '🥞',
+        link: 'https://www.di-napoli.cz/',
+        name: 'Bistro Di Napoli',
+        color: 0x009614,
+        icon: '🍕',
     },
     // {
     //     type: 'static',
