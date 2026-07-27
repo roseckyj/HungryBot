@@ -2,6 +2,7 @@ export function cleanupText(text: string): string {
     return (
         text
             .trim()
+            .replace(/* Newlines */ /\n\s*/gmu, ' ')
             .replace(
                 /* Numbering at the start */
                 /(^((([Mm]?\d+)|([Pp]o(nd[eě]l[ií])?)|([UuÚú]t(er[yý])?)|([Ss]t([rř]eda)?)|([ČčCc]t(vrtek)?)|([Pp][aá](tek)?))[):,;.]\s*)+)/gimu,

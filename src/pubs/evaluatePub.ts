@@ -1,8 +1,8 @@
 import axios from 'axios';
 import parse from 'node-html-parser';
 import { cleanupText } from '../utils/cleanupText';
-import { winToUtf } from '../utils/winToUtf';
 import { Menu, MenuItem, PubDescriptor, PubInfo } from './types';
+
 export async function evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
     const res = await _evaluatePub(pub);
     if (!res) return null;
@@ -20,18 +20,11 @@ async function _evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
         switch (pub.type) {
             case 'menicka': {
                 const response = parse(
-                    winToUtf
-                        .convert(
-                            new Buffer(
-                                (
-                                    await axios.get(`https://www.menicka.cz/${pub.id}.html`, {
-                                        responseEncoding: 'binary',
-                                    })
-                                ).data,
-                                'binary',
-                            ),
-                        )
-                        .toString(),
+                    (
+                        await axios.get(`https://www.menicka.cz/${pub.id}.html`, {
+                            responseEncoding: 'UTF8',
+                        })
+                    ).data,
                 );
 
                 const menicka = response
@@ -50,7 +43,7 @@ async function _evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
                 }));
 
                 const jidlo: MenuItem[] = menicka.querySelectorAll('.jidlo').map((jidlo) => ({
-                    item: jidlo.querySelector('.polozka')?.childNodes[1]?.text ?? '',
+                    item: jidlo.querySelector('.polozka')?.childNodes[2]?.text ?? '',
                     price:
                         parseInt(jidlo.querySelector('.cena')?.text.replace(',', '.').replace(' Kč', '') ?? '0') ||
                         null,
@@ -131,6 +124,7 @@ async function _evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
             }
         }
     } catch (error) {
+        console.error(`Error evaluating pub ${pub.type}:`, error);
         return null;
     }
 }
