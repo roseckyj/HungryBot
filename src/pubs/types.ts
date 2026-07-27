@@ -13,6 +13,12 @@ export type PubDescriptor =
           icon: string;
       }
     | {
+          type: 'lepsimenu';
+          id: string;
+          color: number;
+          icon: string;
+      }
+    | {
           type: 'static';
           link: string;
           name: string;

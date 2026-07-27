@@ -106,6 +106,33 @@ async function _evaluatePub(pub: PubDescriptor): Promise<Menu | null> {
                     items,
                 };
             }
+            case 'lepsimenu': {
+                const data = (await axios.get(`https://www.lepsimenu.cz/api/menus`)).data;
+
+                const restaurant = Object.entries(data.restaurants).find(([id]) => id === pub.id)?.[1] as any;
+                const menu = Object.entries(data.menus).find(([id]) => id === pub.id)?.[1] as any;
+
+                if (!restaurant || !menu) {
+                    return null;
+                }
+
+                return {
+                    pub: {
+                        name: restaurant.name,
+                        address: restaurant.address,
+                        website: restaurant.url,
+                        color: pub.color,
+                        icon: pub.icon,
+                    },
+                    items: menu.map(
+                        (item: any) =>
+                            ({
+                                item: item.name,
+                                price: item.price,
+                            }) as MenuItem,
+                    ),
+                };
+            }
             case 'static': {
                 return {
                     pub: {
