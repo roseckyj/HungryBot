@@ -55,6 +55,6 @@ export async function execute(interaction: ChatInputCommandInteraction) {
     }
 
     await interaction.reply({
-        content: `*${interaction.user.username} does not want to join for lunch anymore. :cry:*`,
+        content: `*<@${interaction.user.id}> does not want to join for lunch anymore. :cry:*`,
     });
 }

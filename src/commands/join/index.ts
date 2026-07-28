@@ -55,6 +55,6 @@ export async function execute(interaction: ChatInputCommandInteraction | ButtonI
     }
 
     await interaction.reply({
-        content: `*${interaction.user.username} wants to join for lunch today! :tada:*`,
+        content: `*<@${interaction.user.id}> wants to join for lunch today! :tada:*`,
     });
 }
